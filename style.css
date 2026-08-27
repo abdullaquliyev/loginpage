@@ -228,7 +228,9 @@ body {
 .brand-name span {
   background: var(--grad-primary);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .brand-tagline {
