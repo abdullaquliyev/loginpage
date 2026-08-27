@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aura Auth | Müasir Giriş və Qeydiyyat</title>
-  <meta name="description" content="Təhlükəsiz və müasir dizayna malik Giriş və Qeydiyyat portalı">
+  <title>Aura Auth & Notes | Təhlükəsiz Qeyd Dəftəri</title>
+  <meta name="description" content="Təhlükəsiz Giriş və Müasir Şəxsi Qeyd (Notepad) Platforması">
   <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,8 +23,10 @@
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- Main Container -->
-  <main class="auth-container">
+  <!-- =========================================================================
+       1. AUTHENTICATION VIEW (LOGIN & REGISTER)
+       ========================================================================= -->
+  <main class="auth-container" id="authContainer">
     <div class="auth-card" id="authCard">
       <!-- Brand Header -->
       <header class="brand-header">
@@ -34,9 +36,9 @@
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
           </div>
-          <span class="brand-name">Aura<span>Auth</span></span>
+          <span class="brand-name">Aura<span>Notes</span></span>
         </div>
-        <p class="brand-tagline">Gələcəyin təhlükəsiz və sürətli idarəetmə platforması</p>
+        <p class="brand-tagline">Şəxsi qeydlərinizə daxil olmaq üçün hesabınıza daxil olun</p>
       </header>
 
       <!-- Tab Switcher -->
@@ -50,7 +52,7 @@
         </button>
       </nav>
 
-      <!-- Forms Wrapper with Slide Effect -->
+      <!-- Forms Wrapper -->
       <div class="forms-slider" id="formsSlider">
         
         <!-- LOGIN FORM -->
@@ -119,7 +121,7 @@
           </div>
 
           <button type="submit" class="submit-btn" id="loginSubmitBtn">
-            <span class="btn-text">Daxil Ol</span>
+            <span class="btn-text">Qeydlərə Daxil Ol</span>
             <span class="btn-loader"></span>
             <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="5" y1="12" x2="19" y2="12"/>
@@ -224,7 +226,7 @@
           </div>
 
           <button type="submit" class="submit-btn" id="regSubmitBtn">
-            <span class="btn-text">Hesab Yarat</span>
+            <span class="btn-text">Hesab Yarat və Başla</span>
             <span class="btn-loader"></span>
             <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="5" y1="12" x2="19" y2="12"/>
@@ -265,26 +267,193 @@
           <span>Apple</span>
         </button>
       </div>
-
-      <!-- Success Screen State Overlay (Hidden by default) -->
-      <div class="success-screen" id="successScreen">
-        <div class="success-icon-wrapper">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-        </div>
-        <h2 id="successTitle">Xoş Gəldiniz!</h2>
-        <p id="successDesc">Uğurla daxil oldunuz. Sizi idarəetmə panelinə yönləndiririk...</p>
-        <div class="loading-progress">
-          <div class="progress-bar"></div>
-        </div>
-        <button type="button" class="back-to-login-btn" id="resetAuthBtn">Girişə Qayıt</button>
-      </div>
     </div>
   </main>
 
-  <!-- Forgot Password Modal -->
+  <!-- =========================================================================
+       2. NOTEPAD DASHBOARD VIEW (AURA NOTES)
+       ========================================================================= -->
+  <div class="notes-app-container hidden" id="notesAppContainer">
+    <!-- Notes Header -->
+    <header class="notes-navbar">
+      <div class="notes-brand">
+        <div class="logo-icon small">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span class="brand-name">Aura<span>Notes</span></span>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="notes-search-wrapper">
+        <span class="search-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </span>
+        <input type="text" id="notesSearchInput" placeholder="Qeydlərdə axtarın (başlıq, mətn)...">
+        <button type="button" class="clear-search-btn hidden" id="clearSearchBtn" aria-label="Axtarışı təmizlə">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- User Nav Actions -->
+      <div class="notes-user-actions">
+        <button type="button" class="create-note-btn" id="openCreateNoteBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>Yeni Qeyd</span>
+        </button>
+
+        <div class="user-profile-badge">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <div class="user-info">
+            <span class="user-display-name" id="userDisplayName">İstifadəçi</span>
+            <span class="user-email-text" id="userEmailText">user@example.com</span>
+          </div>
+        </div>
+
+        <button type="button" class="logout-btn" id="logoutBtn" title="Hesabdan Çıxış">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span>Çıxış</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Category Filter Bar -->
+    <section class="notes-controls">
+      <div class="category-pills" id="categoryPills">
+        <button type="button" class="cat-pill active" data-category="all">Hamısı</button>
+        <button type="button" class="cat-pill" data-category="pinned">📌 Bərkidilənlər</button>
+        <button type="button" class="cat-pill" data-category="work">💼 İş</button>
+        <button type="button" class="cat-pill" data-category="personal">👤 Şəxsi</button>
+        <button type="button" class="cat-pill" data-category="idea">💡 İdeya</button>
+        <button type="button" class="cat-pill" data-category="study">📚 Təhsil</button>
+        <button type="button" class="cat-pill" data-category="urgent">🔥 Təcili</button>
+      </div>
+      <div class="notes-stats" id="notesStats">0 qeyd</div>
+    </section>
+
+    <!-- Notes Main Grid -->
+    <main class="notes-grid-container">
+      <div class="notes-grid" id="notesGrid">
+        <!-- Notes cards will be injected dynamically via script.js -->
+      </div>
+
+      <!-- Empty State View -->
+      <div class="empty-notes-state hidden" id="emptyNotesState">
+        <div class="empty-icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+        </div>
+        <h3 id="emptyStateTitle">Hələ heç bir qeydiniz yoxdur</h3>
+        <p id="emptyStateDesc">Fikirlərinizi və ya tapşırıqlarınızı yadda saxlamaq üçün ilk qeydinizi yaradın.</p>
+        <button type="button" class="create-first-note-btn" id="emptyStateCreateBtn">
+          <span>+ İlk Qeydi Yarat</span>
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       3. CREATE & EDIT NOTE MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="noteModal">
+    <div class="modal-card note-modal-card">
+      <button type="button" class="modal-close" id="closeNoteModal" aria-label="Bağla">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="modal-header left-aligned">
+        <h3 id="noteModalTitle">Yeni Qeyd Yarat</h3>
+        <p id="noteModalSubtitle">Fikirlərinizi, planlarınızı və ya mühüm məlumatlarınızı qeyd edin.</p>
+      </div>
+
+      <form id="noteForm" novalidate>
+        <input type="hidden" id="noteEditId" value="">
+
+        <div class="form-group">
+          <label for="noteTitleInput">Başlıq</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="noteTitleInput" 
+              placeholder="Qeydin başlığı..." 
+              required
+              maxlength="100"
+            >
+          </div>
+          <span class="error-msg" id="noteTitleError"></span>
+        </div>
+
+        <div class="form-row-grid">
+          <div class="form-group">
+            <label for="noteCategorySelect">Kateqoriya</label>
+            <div class="input-wrapper select-wrapper">
+              <select id="noteCategorySelect">
+                <option value="work">💼 İş</option>
+                <option value="personal">👤 Şəxsi</option>
+                <option value="idea">💡 İdeya</option>
+                <option value="study">📚 Təhsil</option>
+                <option value="urgent">🔥 Təcili</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group align-center-checkbox">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="notePinCheckbox">
+              <span class="checkbox-box"></span>
+              <span class="checkbox-text">📌 Yuxarıda bərkit</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="noteContentInput">Qeyd Mətni</label>
+          <div class="textarea-wrapper">
+            <textarea 
+              id="noteContentInput" 
+              rows="6" 
+              placeholder="Qeydinizi buraya daxil edin..."
+              required
+            ></textarea>
+          </div>
+          <span class="error-msg" id="noteContentError"></span>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="cancel-modal-btn" id="cancelNoteModalBtn">Ləğv et</button>
+          <button type="submit" class="submit-btn" id="saveNoteBtn">
+            <span class="btn-text">Qeydi Yadda Saxla</span>
+            <span class="btn-loader"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       4. FORGOT PASSWORD MODAL
+       ========================================================================= -->
   <div class="modal-overlay" id="forgotModal">
     <div class="modal-card">
       <button type="button" class="modal-close" id="closeForgotModal" aria-label="Bağla">
