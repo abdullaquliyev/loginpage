@@ -290,17 +290,31 @@ body {
    ========================================================================== */
 
 .forms-slider {
-  display: flex;
-  width: 200%;
-  transition: transform var(--transition-spring);
+  position: relative;
+  width: 100%;
 }
 
 .auth-form {
-  width: 50%;
-  display: flex;
+  display: none;
+  width: 100%;
   flex-direction: column;
   gap: 18px;
-  padding: 2px;
+}
+
+.auth-form.active {
+  display: flex;
+  animation: formFadeSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes formFadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .form-group {

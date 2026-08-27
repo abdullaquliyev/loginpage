@@ -49,12 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
       tabGlider.style.transform = 'translateX(100%)';
       loginTabBtn.classList.remove('active');
       registerTabBtn.classList.add('active');
-      formsSlider.style.transform = 'translateX(-50%)';
+      loginForm.classList.remove('active');
+      registerForm.classList.add('active');
     } else {
       tabGlider.style.transform = 'translateX(0%)';
       registerTabBtn.classList.remove('active');
       loginTabBtn.classList.add('active');
-      formsSlider.style.transform = 'translateX(0%)';
+      registerForm.classList.remove('active');
+      loginForm.classList.add('active');
     }
   }
 
@@ -309,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     successScreen.classList.remove('active');
     loginForm.reset();
     registerForm.reset();
+    switchTab('login');
     passwordStrength.className = 'password-strength-container';
     strengthText.textContent = 'Şifrə gücü: Daxil edilməyib';
   });
